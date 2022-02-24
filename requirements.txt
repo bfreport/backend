@@ -1,3 +1,4 @@
 aiohttp~=3.7.4.post0
 casdoor-python-sdk~=0.0.1
 Authlib~=0.15.5
+starlette~=0.16.0

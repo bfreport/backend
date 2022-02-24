@@ -10,4 +10,4 @@ COPY ./app /app
 CMD uvicorn app.main:app --host 0.0.0.0 --port 443 --ssl-keyfile=./privkey.pem --ssl-certfile=./fullchain.pem
 
 # cd backend
-# uvicorn app.main:app --host 0.0.0.0 --port 5051
+# uvicorn app.main:app --host 0.0.0.0 --port 5051 --ssl-keyfile=../ssl-certs/privkey.pem --ssl-certfile=../ssl-certs/fullchain.pem
