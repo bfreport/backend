@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from oauth.main import CasdoorSDK
 from authlib.jose import jwt
-from config import Config
+from ...config import Config
 
 router = APIRouter()
 

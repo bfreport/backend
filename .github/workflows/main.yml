@@ -42,6 +42,12 @@ jobs:
         run: |
           echo "$PRIV" | base64 --decode > privkey.pem
 
+      - name: Write key file
+        env:
+          CONFIG: ${{ secrets.CONFIG }}
+        run: |
+          echo "$CONFIG" | base64 --decode > config.py
+
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
