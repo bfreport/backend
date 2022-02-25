@@ -1,0 +1,38 @@
+{
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "inferenceAccelerators": [],
+    "containerDefinitions": [
+        {
+            "name": "main-api",
+            "image": "main-api",
+            "resourceRequirements": null,
+            "essential": true,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": null,
+                "options": {
+                  "awslogs-group": "/ecs/main-api-task-def",
+                  "awslogs-region": "eu-central-1",
+                  "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "portMappings": [
+                {
+                    "containerPort": "443",
+                    "protocol": "tcp"
+                }
+                
+            ]
+        }
+    ],
+    "volumes": [],
+    "networkMode": "awsvpc",
+    "memory": "512",
+    "cpu": "256",
+    "executionRoleArn": "arn:aws:iam::493933875917:role/ecsTaskExecutionRole",
+    "family": "main-api-task-def",
+    "taskRoleArn": "arn:aws:iam::493933875917:role/ecsTaskExecutionRole",
+    "placementConstraints": []
+}
