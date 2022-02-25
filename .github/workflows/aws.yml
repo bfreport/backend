@@ -38,6 +38,24 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: Write fullchain file
+      env:
+        FULL: ${{ secrets.FULLCHAIN }}
+      run: |
+        echo "$FULL" | base64 --decode > fullchain.pem
+
+    - name: Write key file
+      env:
+        PRIV: ${{ secrets.PRIVKEY }}
+      run: |
+        echo "$PRIV" | base64 --decode > privkey.pem
+
+    - name: Write key file
+      env:
+        CONFIG: ${{ secrets.CONFIG }}
+      run: |
+        echo "$CONFIG" | base64 --decode > config.py
+
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
