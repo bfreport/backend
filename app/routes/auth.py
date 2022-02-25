@@ -84,22 +84,6 @@ class OAuth2PasswordBearerCookie(OAuth2):
 
 oauth2_scheme = OAuth2PasswordBearerCookie(tokenUrl="/token")
 
-@router.get("/auth/callback", 
-    summary="save auth"
-    )
-async def callback(code: str):
-    token = sdk.get_oauth_token(code)
-    response = RedirectResponse(url="/test")
-    response.set_cookie(
-            "Authorization",
-            value=f"Bearer {token}",
-            domain=Config.Auth.domain,
-            httponly=True,
-            max_age=1800,
-            expires=1800,
-    )
-    return response
-
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=HTTP_403_FORBIDDEN, detail="Could not validate credentials"
@@ -114,9 +98,29 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     user = DictToUser(payload)
     return user
 
-@router.get('/login')
+@router.get("/auth/callback", 
+    summary="save auth"
+    )
+async def callback(code: str):
+    token = sdk.get_oauth_token(code)
+    response = RedirectResponse(url="/auth/test")
+    response.set_cookie(
+            "Authorization",
+            value=f"Bearer {token}",
+            domain=Config.Auth.domain,
+            httponly=True,
+            max_age=1800,
+            expires=1800,
+    )
+    return response
+
+@router.get('/locallogin')
 async def login():
     return RedirectResponse(url='https://auth.bfreport.com/login/oauth/authorize?client_id=6493dc8b964b65fc0591&response_type=code&redirect_uri=https%3A%2F%2F127.0.0.1%3A5051%2Fauth%2Fcallback&scope=read&state=test-app')
+
+@router.get('/login')
+async def login():
+    return RedirectResponse(url='https://auth.bfreport.com/login/oauth/authorize?client_id=994c97aa8467ae9acf48&response_type=code&redirect_uri=https://api.bfreport.com/auth/callback&scope=read&state=bfreport_main')
 
 @router.get("/auth/logout")
 async def route_logout_and_remove_cookie():
@@ -124,6 +128,6 @@ async def route_logout_and_remove_cookie():
     response.delete_cookie("Authorization", domain=Config.Auth.domain)
     return response
 
-@router.get("/test")
+@router.get("/auth/test")
 async def test(current_user: User = Depends(get_current_user)):
     return {"name": current_user.name}
