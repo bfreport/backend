@@ -54,7 +54,7 @@ jobs:
       env:
         CONFIG: ${{ secrets.CONFIG }}
       run: |
-        echo "$CONFIG" | base64 --decode > config.py
+        echo "$CONFIG" | base64 --decode > ./app/config.py
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
