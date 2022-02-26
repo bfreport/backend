@@ -129,7 +129,7 @@ async def route_logout_and_remove_cookie():
     return response
 
 @router.get("/auth/current")
-async def test(current_user: User = Depends(get_current_user)):
+async def current_user(current_user: User = Depends(get_current_user)):
     return {
         "id": current_user.sub,
         "name": current_user.name,
