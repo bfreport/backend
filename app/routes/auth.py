@@ -103,7 +103,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     )
 async def callback(code: str):
     token = sdk.get_oauth_token(code)
-    response = RedirectResponse(url="/auth/test")
+    response = RedirectResponse(url="/auth/current")
     response.set_cookie(
             "Authorization",
             value=f"Bearer {token}",
@@ -128,6 +128,13 @@ async def route_logout_and_remove_cookie():
     response.delete_cookie("Authorization", domain=Config.Auth.domain)
     return response
 
-@router.get("/auth/test")
+@router.get("/auth/current")
 async def test(current_user: User = Depends(get_current_user)):
-    return {"name": current_user.name}
+    return {
+        "id": current_user.sub,
+        "name": current_user.name,
+        "avatar": current_user.avatar,
+        "createdAt": current_user.createdTime,
+        "email": current_user.email,
+        "displayName" :current_user.displayName
+        }
