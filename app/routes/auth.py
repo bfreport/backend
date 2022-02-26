@@ -103,20 +103,20 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     )
 async def callback(code: str):
     token = sdk.get_oauth_token(code)
-    response = RedirectResponse(url="/auth/current")
+    response = RedirectResponse(url=Config.Auth.redirect_location)
     response.set_cookie(
             "Authorization",
             value=f"Bearer {token}",
             domain=Config.Auth.domain,
             httponly=True,
-            max_age=1800,
-            expires=1800,
+            max_age=3600,
+            expires=3600,
     )
     return response
 
 @router.get('/locallogin')
 async def login():
-    return RedirectResponse(url='https://auth.bfreport.com/login/oauth/authorize?client_id=6493dc8b964b65fc0591&response_type=code&redirect_uri=https%3A%2F%2F127.0.0.1%3A5051%2Fauth%2Fcallback&scope=read&state=test-app')
+    return RedirectResponse(url='https://auth.bfreport.com/login/oauth/authorize?client_id=6493dc8b964b65fc0591&response_type=code&redirect_uri=https%3A%2F%2Flocalhost%3A5051%2Fauth%2Fcallback&scope=read&state=test-app')
 
 @router.get('/login')
 async def login():
