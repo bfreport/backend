@@ -8,9 +8,8 @@ from fastapi.security.utils import get_authorization_scheme_param
 from fastapi.security import OAuth2
 from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
 
-from starlette.responses import RedirectResponse
-from starlette.status import HTTP_403_FORBIDDEN
-from starlette.requests import Request
+from fastapi.responses import RedirectResponse
+from fastapi.requests import Request
 
 router = APIRouter()
 
@@ -76,7 +75,7 @@ class OAuth2PasswordBearerCookie(OAuth2):
         if not authorization or scheme.lower() != "bearer":
             if self.auto_error:
                 raise HTTPException(
-                    status_code=HTTP_403_FORBIDDEN, detail="Not authenticated"
+                    status_code=403, detail="Not authenticated"
                 )
             else:
                 return None
@@ -86,7 +85,7 @@ oauth2_scheme = OAuth2PasswordBearerCookie(tokenUrl="/token")
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
-        status_code=HTTP_403_FORBIDDEN, detail="Could not validate credentials"
+        status_code=403, detail="Could not validate credentials"
     )
     try:
         payload = jwt.decode(token, Config.Auth.pub_key)
