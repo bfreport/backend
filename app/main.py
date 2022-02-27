@@ -1,7 +1,8 @@
 from fastapi import FastAPI
-from .routes import auth
 from fastapi.responses import RedirectResponse
 from fastapi.middleware.cors import CORSMiddleware
+
+from .routes import auth
 
 origins = [
     "https://bfportal.com",
