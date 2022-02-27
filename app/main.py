@@ -16,7 +16,22 @@ middleware = [
         allow_origins=origins,
         allow_credentials=True,
         allow_methods=["POST", "GET"],
-        allow_headers=["*"],
+        allow_headers=[
+            "Access-Control-Allow-Headers",
+            "Origin",
+            "Accept",
+            "X-Requested-With",
+            "Content-Type",
+            "Access-Control-Request-Method",
+            "Access-Control-Request-Headers",
+            "Access-Control-Allow-Credentials",
+            "Access-Control-Allow-Origin",
+            "Access-Control-Allow-Methods"
+            "Authorization",
+            "X-Amz-Date",
+            "X-Api-Key",
+            "X-Amz-Security-Token"
+        ],
         max_age=3600,
     )
 ]
