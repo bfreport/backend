@@ -13,7 +13,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://bfportal.com:443",
+        "https://bfportal.com/",
         "http://localhost:8081",
         "http://localhost:8082",
     ],
