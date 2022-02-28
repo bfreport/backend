@@ -19,10 +19,12 @@ sdk = CasdoorSDK(
     Config.Auth.org,
 )
 
+
 class DictToUser(object):
     def __init__(self, user_dict):
         for key in user_dict:
             setattr(self, key, user_dict[key])
+
 
 class User:
     sub: str
@@ -32,6 +34,7 @@ class User:
     avatar: str
     type: str
     email: str
+
 
 class OAuth2PasswordBearerCookie(OAuth2):
     def __init__(
@@ -43,7 +46,8 @@ class OAuth2PasswordBearerCookie(OAuth2):
     ):
         if not scopes:
             scopes = {}
-        flows = OAuthFlowsModel(password={"tokenUrl": tokenUrl, "scopes": scopes})
+        flows = OAuthFlowsModel(
+            password={"tokenUrl": tokenUrl, "scopes": scopes})
         super().__init__(flows=flows, scheme_name=scheme_name, auto_error=auto_error)
 
     async def __call__(self, request: Request) -> Optional[str]:
@@ -79,7 +83,9 @@ class OAuth2PasswordBearerCookie(OAuth2):
                 return None
         return param
 
+
 oauth2_scheme = OAuth2PasswordBearerCookie(tokenUrl="/token")
+
 
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
