@@ -14,11 +14,14 @@ router = APIRouter()
             )
 async def callback(code: str):
     token = sdk.get_oauth_token(code)
-    payload = jwt.decode(token, Config.Auth.pub_key)
-    username: str = payload.get("sub")
-    if username is None:
+    try:
+        payload = jwt.decode(token, Config.Auth.pub_key)
+    except:
+        payload = None
+    id: str = payload.get("sub")
+    if id is None:
         raise HTTPException(
-            status_code=403, detail="Not authenticated"
+            status_code=403, detail="Error authenticating"
         )
     response = RedirectResponse(url=Config.Auth.redirect_location)
     response.set_cookie(
