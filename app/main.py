@@ -17,11 +17,7 @@ def create_app() -> CORSMiddleware:
     
     return CORSMiddleware(
         fastapi_app,
-        allow_origins=[
-            "https://bfportal.com",
-            "http://localhost:8081",
-            "http://localhost:8082",
-        ],
+        allow_origins=["https://bfportal.com"],
         allow_credentials=True,
         allow_methods=["POST", "GET", "OPTIONS"],
         allow_headers=[
