@@ -16,9 +16,9 @@ async def callback(code: str):
     token = sdk.get_oauth_token(code)
     try:
         payload = jwt.decode(token, Config.Auth.pub_key)
+        id: str = payload.get("sub")
     except:
-        payload = None
-    id: str = payload.get("sub")
+        id = None
     if id is None:
         raise HTTPException(
             status_code=403, detail="Error authenticating"
