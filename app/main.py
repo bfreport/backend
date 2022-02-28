@@ -26,5 +26,5 @@ app.add_middleware(
         "Authorization",
         "Content-Type"
     ],
-    max_age=3600,
+    max_age=43200,
 )
