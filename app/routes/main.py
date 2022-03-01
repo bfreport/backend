@@ -6,7 +6,7 @@ router = APIRouter()
 
 @router.get("/",
             summary="Redirect to docs",
-            tags="Default")
+            tags=["Default"])
 async def root():
     response = RedirectResponse(url='/docs')
     return response
