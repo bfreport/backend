@@ -5,7 +5,7 @@ from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
 from fastapi.requests import Request
 
 from typing import Optional
-from oauth.main import CasdoorSDK
+from casdoor import CasdoorSDK
 from authlib.jose import jwt
 from authlib.jose.errors import DecodeError
 

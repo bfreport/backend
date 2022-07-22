@@ -1,5 +1,5 @@
 aiohttp~=3.8.1
-casdoor-python-sdk~=0.0.1
+casdoor~=1.1.5
 Authlib~=0.15.5
 uvicorn~=0.17.5
 fastapi~=0.74.1

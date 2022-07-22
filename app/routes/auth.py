@@ -39,7 +39,7 @@ async def callback(code: str):
             summary="Do login action within test env",
             tags=["Auth"])
 async def login():
-    return RedirectResponse(url='https://auth.bfreport.com/login/oauth/authorize?client_id=6493dc8b964b65fc0591&response_type=code&redirect_uri=https%3A%2F%2Flocalhost%3A5051%2Fauth%2Fcallback&scope=read&state=test-app')
+    return RedirectResponse(url='https://auth.bfreport.com/login/oauth/authorize?client_id=6493dc8b964b65fc0591&response_type=code&redirect_uri=https%3A%2F%2Flocaltest.me%3A5051%2Fauth%2Fcallback&scope=read&state=test-app')
 
 
 @router.get('/login',
